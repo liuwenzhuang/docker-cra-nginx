@@ -18,4 +18,6 @@ RUN yarn build
 # nginx stage
 FROM nginx
 
+COPY nginx.conf /etc/nginx/nginx.conf
+
 COPY --from=build /tmp/build/build /usr/share/nginx/html

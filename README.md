@@ -19,7 +19,8 @@ $ docker run -it --rm --init -p 8085:80 docker-cra-nginx
 在开发过程中，可以将目标目录下的文件挂载进容器进行测试，而省去每次修改都需要`docker build`的麻烦：
 
 ```bash
-$ docker run -it --rm --init -v $PWD/build:/usr/share/nginx/html -p 8085:80 nginx
-# 或完整形式
-$ docker run -it --rm --init --mount type=bind,source=$(pwd)/build,target=/usr/share/nginx/html -p 8085:80 nginx
+# 挂载静态资源和配置文件
+$ docker run -it --rm --init -v $PWD/build:/usr/share/nginx/html -v $PWD/nginx.conf:/etc/nginx/nginx.conf -p 8085:80 nginx
+# 或另一种方式
+$ docker run -it --rm --init --mount type=bind,source=$(pwd)/build,target=/usr/share/nginx/html --mount type=bind,source=$(pwd)/nginx.conf,target=/etc/nginx/nginx.conf -p 8085:80 nginx
 ```
